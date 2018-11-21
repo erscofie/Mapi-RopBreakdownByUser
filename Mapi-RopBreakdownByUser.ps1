@@ -15,264 +15,138 @@ param(
 
 )
 
-$ropNames = @(
-"Reserved",
-"RopRelease",
-"RopOpenFolder",
-"RopOpenMessage",
-"RopGetHierarchyTable",
-"RopGetContentsTable",
-"RopCreateMessage",
-"RopGetPropertiesSpecific",
-"RopGetPropertiesAll",
-"RopGetPropertiesList",
-"RopSetProperties",
-"RopDeleteProperties",
-"RopSaveChangesMessage",
-"RopRemoveAllRecipients",
-"RopModifyRecipients",
-"RopReadRecipients",
-"RopReloadCachedInformation",
-"RopSetMessageReadFlag",
-"RopSetColumns",
-"RopSortTable",
-"RopRestrict",
-"RopQueryRows",
-"RopGetStatus",
-"RopQueryPosition",
-"RopSeekRow",
-"RopSeekRowBookmark",
-"RopSeekRowFractional",
-"RopCreateBookmark",
-"RopCreateFolder",
-"RopDeleteFolder",
-"RopDeleteMessages",
-"RopGetMessageStatus",
-"RopSetMessageStatus",
-"RopGetAttachmentTable",
-"RopOpenAttachment",
-"RopCreateAttachment",
-"RopDeleteAttachment",
-"RopSaveChangesAttachment",
-"RopSetReceiveFolder",
-"RopGetReceiveFolder",
-"Reserved",
-"RopRegisterNotification",
-"RopNotify",
-"RopOpenStream",
-"RopReadStream",
-"RopWriteStream",
-"RopSeekStream",
-"RopSetStreamSize",
-"RopSetSearchCriteria",
-"RopGetSearchCriteria",
-"RopSubmitMessage",
-"RopMoveCopyMessages",
-"RopAbortSubmit",
-"RopMoveFolder",
-"RopCopyFolder",
-"RopQueryColumnsAll",
-"RopAbort",
-"RopCopyTo",
-"RopCopyToStream",
-"RopCloneStream",
-"Reserved",
-"Reserved",
-"RopGetPermissionsTable",
-"RopGetRulesTable",
-"RopModifyPermissions",
-"RopModifyRules",
-"RopGetOwningServers",
-"RopLongTermIdFromId",
-"RopIdFromLongTermId",
-"RopPublicFolderIsGhosted",
-"RopOpenEmbeddedMessage",
-"RopSetSpooler",
-"RopSpoolerLockMessage",
-"RopGetAddressTypes",
-"RopTransportSend",
-"RopFastTransferSourceCopyMessages",
-"RopFastTransferSourceCopyFolder",
-"RopFastTransferSourceCopyTo",
-"RopFastTransferSourceGetBuffer",
-"RopFindRow",
-"RopProgress",
-"RopTransportNewMail",
-"RopGetValidAttachments",
-"RopFastTransferDestinationConfigure",
-"RopFastTransferDestinationPutBuffer",
-"RopGetNamesFromPropertyIds",
-"RopGetPropertyIdsFromNames",
-"RopUpdateDeferredActionMessages",
-"RopEmptyFolder",
-"RopExpandRow",
-"RopCollapseRow",
-"RopLockRegionStream",
-"RopUnlockRegionStream",
-"RopCommitStream",
-"RopGetStreamSize",
-"RopQueryNamedProperties",
-"RopGetPerUserLongTermIds",
-"RopGetPerUserGuid",
-"Reserved",
-"RopReadPerUserInformation",
-"RopWritePerUserInformation",
-"Reserved",
-"RopSetReadFlags",
-"RopCopyProperties",
-"RopGetReceiveFolderTable",
-"RopFastTransferSourceCopyProperties",
-"Reserved",
-"RopGetCollapseState",
-"RopSetCollapseState",
-"RopGetTransportFolder",
-"RopPending",
-"RopOptionsData",
-"RopSynchronizationConfigure",
-"Reserved",
-"RopSynchronizationImportMessageChange",
-"RopSynchronizationImportHierarchyChange",
-"RopSynchronizationImportDeletes",
-"RopSynchronizationUploadStateStreamBegin",
-"RopSynchronizationUploadStateStreamContinue",
-"RopSynchronizationUploadStateStreamEnd",
-"RopSynchronizationImportMessageMove",
-"RopSetPropertiesNoReplicate",
-"RopDeletePropertiesNoReplicate",
-"RopGetStoreState",
-"Reserved",
-"Reserved",
-"RopSynchronizationOpenCollector",
-"RopGetLocalReplicaIds",
-"RopSynchronizationImportReadStateChanges",
-"RopResetTable",
-"RopSynchronizationGetTransferState",
-"Reserved",
-"Reserved",
-"Reserved",
-"RopTellVersion",
-"Reserved",
-"Reserved",
-"RopFreeBookmark",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"RopWriteAndCommitStream",
-"RopHardDeleteMessages",
-"RopHardDeleteMessagesAndSubfolders",
-"RopSetLocalReplicaMidsetDeleted",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"RopBackoff",
-"Reserved",
-"Reserved",
-"Reserved",
-"Reserved",
-"RopLogon",
-"RopBufferTooSmall"
-)
+$ropNames = @{
+1 = "RopRelease";
+2 = "RopOpenFolder";
+3 = "RopOpenMessage";
+4 = "RopGetHierarchyTable";
+5 = "RopGetContentsTable";
+6 = "RopCreateMessage";
+7 = "RopGetPropertiesSpecific";
+8 = "RopGetPropertiesAll";
+9 = "RopGetPropertiesList";
+10 = "RopSetProperties";
+11 = "RopDeleteProperties";
+12 = "RopSaveChangesMessage";
+13 = "RopRemoveAllRecipients";
+14 = "RopModifyRecipients";
+15 = "RopReadRecipients";
+16 = "RopReloadCachedInformation";
+17 = "RopSetMessageReadFlag";
+18 = "RopSetColumns";
+19 = "RopSortTable";
+20 = "RopRestrict";
+21 = "RopQueryRows";
+22 = "RopGetStatus";
+23 = "RopQueryPosition";
+24 = "RopSeekRow";
+25 = "RopSeekRowBookmark";
+26 = "RopSeekRowFractional";
+27 = "RopCreateBookmark";
+28 = "RopCreateFolder";
+29 = "RopDeleteFolder";
+30 = "RopDeleteMessages";
+31 = "RopGetMessageStatus";
+32 = "RopSetMessageStatus";
+33 = "RopGetAttachmentTable";
+34 = "RopOpenAttachment";
+35 = "RopCreateAttachment";
+36 = "RopDeleteAttachment";
+37 = "RopSaveChangesAttachment";
+38 = "RopSetReceiveFolder";
+39 = "RopGetReceiveFolder";
+41 = "RopRegisterNotification";
+42 = "RopNotify";
+43 = "RopOpenStream";
+44 = "RopReadStream";
+45 = "RopWriteStream";
+46 = "RopSeekStream";
+47 = "RopSetStreamSize";
+48 = "RopSetSearchCriteria";
+49 = "RopGetSearchCriteria";
+50 = "RopSubmitMessage";
+51 = "RopMoveCopyMessages";
+52 = "RopAbortSubmit";
+53 = "RopMoveFolder";
+54 = "RopCopyFolder";
+55 = "RopQueryColumnsAll";
+56 = "RopAbort";
+57 = "RopCopyTo";
+58 = "RopCopyToStream";
+59 = "RopCloneStream";
+62 = "RopGetPermissionsTable";
+63 = "RopGetRulesTable";
+64 = "RopModifyPermissions";
+65 = "RopModifyRules";
+66 = "RopGetOwningServers";
+67 = "RopLongTermIdFromId";
+68 = "RopIdFromLongTermId";
+69 = "RopPublicFolderIsGhosted";
+70 = "RopOpenEmbeddedMessage";
+71 = "RopSetSpooler";
+72 = "RopSpoolerLockMessage";
+73 = "RopGetAddressTypes";
+74 = "RopTransportSend";
+75 = "RopFastTransferSourceCopyMessages";
+76 = "RopFastTransferSourceCopyFolder";
+77 = "RopFastTransferSourceCopyTo";
+78 = "RopFastTransferSourceGetBuffer";
+79 = "RopFindRow";
+80 = "RopProgress";
+81 = "RopTransportNewMail";
+82 = "RopGetValidAttachments";
+83 = "RopFastTransferDestinationConfigure";
+84 = "RopFastTransferDestinationPutBuffer";
+85 = "RopGetNamesFromPropertyIds";
+86 = "RopGetPropertyIdsFromNames";
+87 = "RopUpdateDeferredActionMessages";
+88 = "RopEmptyFolder";
+89 = "RopExpandRow";
+90 = "RopCollapseRow";
+91 = "RopLockRegionStream";
+92 = "RopUnlockRegionStream";
+93 = "RopCommitStream";
+94 = "RopGetStreamSize";
+95 = "RopQueryNamedProperties";
+96 = "RopGetPerUserLongTermIds";
+97 = "RopGetPerUserGuid";
+99 = "RopReadPerUserInformation";
+100 = "RopWritePerUserInformation";
+102 = "RopSetReadFlags";
+103 = "RopCopyProperties";
+104 = "RopGetReceiveFolderTable";
+105 = "RopFastTransferSourceCopyProperties";
+107 = "RopGetCollapseState";
+108 = "RopSetCollapseState";
+109 = "RopGetTransportFolder";
+110 = "RopPending";
+111 = "RopOptionsData";
+112 = "RopSynchronizationConfigure";
+114 = "RopSynchronizationImportMessageChange";
+115 = "RopSynchronizationImportHierarchyChange";
+116 = "RopSynchronizationImportDeletes";
+117 = "RopSynchronizationUploadStateStreamBegin";
+118 = "RopSynchronizationUploadStateStreamContinue";
+119 = "RopSynchronizationUploadStateStreamEnd";
+120 = "RopSynchronizationImportMessageMove";
+121 = "RopSetPropertiesNoReplicate";
+122 = "RopDeletePropertiesNoReplicate";
+123 = "RopGetStoreState";
+126 = "RopSynchronizationOpenCollector";
+127 = "RopGetLocalReplicaIds";
+128 = "RopSynchronizationImportReadStateChanges";
+129 = "RopResetTable";
+130 = "RopSynchronizationGetTransferState";
+134 = "RopTellVersion";
+137 = "RopFreeBookmark";
+144 = "RopWriteAndCommitStream";
+145 = "RopHardDeleteMessages";
+146 = "RopHardDeleteMessagesAndSubfolders";
+147 = "RopSetLocalReplicaMidsetDeleted";
+249 = "RopBackoff";
+254 = "RopLogon";
+255 = "RopBufferTooSmall"
+}
 
 $inputDirectory = $inputDirectory.ToLower();
 
@@ -340,7 +214,7 @@ foreach ($file in $inputFiles) {
                 if ($rop.Contains('>')) {
                     $counter++
                     $newRec = $rop.Trim().Replace('>', '').Replace("[", '').Replace('"', '')        
-                    $newRec = $User + "," +  $ropNames[$newRec]
+                    $newRec = $User + "," +  $ropNames[[int]$newRec]
                     #Write-Host $newRec
                     $stream.WriteLine($newRec)
                 }
