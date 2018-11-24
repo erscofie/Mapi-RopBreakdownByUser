@@ -14,3 +14,11 @@ This is a per server setting, meaning you must edit the config file on every ser
 Open web.config in notepad, then find the **LoggingTag**. Add the 'Rops' tag in the value section, as shown here:
 
 <p><img src="img/web.config_enable.png" /></p>
+
+After saving the change, individual Rops will then be included under the 'RopIds' field in MapiHttp mailbox logs, located in the  *"..\V15\Logging\MapiHttp\Mailbox"* directory.
+
+## Making use of the data:
+
+For those that have used Rop logging with RPC Client Access logs before, you'll recall that Rops are logged using the Rop names, making it easy to decipher. With MapiHttp, RopIds are logged rather than the name, so you end up with something that looks like this (highlighting the ROPs in from client, indicated by the '>' character):
+
+
