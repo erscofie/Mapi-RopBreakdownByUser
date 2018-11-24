@@ -13,4 +13,4 @@ This is a per server setting, meaning you must edit the config file on every ser
 
 Open web.config in notepad, then find the **LoggingTag**. Add the 'Rops' tag in the value section, as shown here:
 
-![Enable Rops LoggingTag in web.config](/img/web.config_enable.png)
+<p><img src="img/web.config_enable.png" /></p>
