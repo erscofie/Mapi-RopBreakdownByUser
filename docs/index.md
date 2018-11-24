@@ -12,3 +12,5 @@ To enable ROP logging, you need to edit the web.config file located in the follo
 This is a per server setting, meaning you must edit the config file on every server you need to enable ROP logging on.
 
 Open web.config in notepad, then find the **LoggingTag**. Add the 'Rops' tag in the value section, as shown here:
+
+![Enable Rops LoggingTag in web.config](/img/web.config_enable.png)
