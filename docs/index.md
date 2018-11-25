@@ -21,6 +21,8 @@ Open web.config in notepad, then find the **LoggingTag**. Add the 'Rops' tag in 
 
 After saving the change, individual Rops will then be included under the 'RopIds' field in MapiHttp mailbox logs, located in the  *"..\V15\Logging\MapiHttp\Mailbox"* directory.
 
+----
+
 ## Making use of the data:
 
 
@@ -28,4 +30,11 @@ For those that have used Rop logging with RPC Client Access logs before, you'll 
 
 
 2018-11-23T05:00:04.781Z,d9b904f9-5654-4c4c-9a62-43cd99ab6b44,{FA1ACA19-9B3E-458A-B60D-3A18410FEEE2}:153,<null>,Execute,200,0,0,0,6,Unknown,15,1,1531,3,CORP\mbx001,,,,e4f3c049-3f15-4f42-8a85-3eda4155c9b0@corp.supportengineer.pro,4694ca50-35d9-49c8-b0ee-69071d4c9107,mbx001@corp.supportengineer.pro,192.168.10.56,E16MBX1.CORP.SUPPORTENGINEER.PRO,<null>,,MAPIAAAAAODR56rosIGikKCRqYS1hKmbqIi4jLaDtoy5idPwwfDF8sf/xvXN/wwAAAAAAAAA,147-1MB9Qg==,{DC6BADA6-4CDD-4C72-A8E9-26E6B2C01E30}:8,OUTLOOK.EXE,14.0.7187.5000,1,Negotiate,,,,,,,,,Anonymous,**>[5]>[18]>[19]>[23]**<[5]<[18]<[19]<[23]
-  ,,cpn=M_ABR/RUM_ABR/RUM_ABRC/M_APAR/M_APRH/M_DTC/M_DTQ/M_DTE/M_RDE/M_RDrE/M_RDrEc/M_RDEc/M_DTEc/M_APoRH/M_AER/;cpv=0/0/0/1/1/1/1/1/1/1/5/5/5/5/5/;Dbl:BudgUse.T[]=8.00380039215088;I32:VCGS.C[E16MBX1]=1;Dbl:VCGS.T[E16MBX1]=0;I32:RPC.C[]=3;Dbl:RPC.T[]=3;I32:ROP.C[]=3053446;I32:MAPI.C[]=9;Dbl:EXR.T[]=1;I32:MB.C[]=3;F:MB.AL[]=1;Dbl:ST.T[]=1;Dbl:MAPI.T[]=3,
+ ,,cpn=M_ABR/RUM_ABR/RUM_ABRC/M_APAR/M_APRH/M_DTC/M_DTQ/M_DTE/M_RDE/M_RDrE/M_RDrEc/M_RDEc/M_DTEc/M_APoRH/M_AER/;cpv=0/0/0/1/1/1/1/1/1/1/5/5/5/5/5/;Dbl:BudgUse.T[]=8.00380039215088;I32:VCGS.C[E16MBX1]=1;Dbl:VCGS.T[E16MBX1]=0;I32:RPC.C[]=3;Dbl:RPC.T[]=3;I32:ROP.C[]=3053446;I32:MAPI.C[]=9;Dbl:EXR.T[]=1;I32:MB.C[]=3;F:MB.AL[]=1;Dbl:ST.T[]=1;Dbl:MAPI.T[]=3,
+
+So, now the obvious question… how the heck do I make use of that?
+
+If you like math and extra steps in troubleshooting, the answer is that you take the documented [table of RopIds](https://msdn.microsoft.com/en-us/library/ee201399(v=exchg.80).aspx) which lists each RopId in hex, convert the above decimal values to hex, then find the related Rop Name. Repeat for every RopId in the log.
+
+Not only is this a painully inefficient process, but it leaves another important issue unaddressed. Since multiple RopIds are written in each request logged, it's really difficult to parse this data in ways we find most useful, such as number of each rop per log, or per user. Instead, you can only get as far as parsing for groups of RopIds, which looks something like this in LPS:
+
