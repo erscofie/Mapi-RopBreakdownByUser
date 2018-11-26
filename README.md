@@ -7,4 +7,4 @@ Script adapted from [.\RopBreakdownByUser.ps1](https://blogs.technet.microsoft.c
 
 Rop logging must be enabled for MapiHttp\mailbox logs so RopId field is populated. Refer to the [Wiki](https://github.com/erscofie/Mapi-RopBreakdownByUser/wiki/Enable-Rop-logging-for-MapiHttp-in-Exchange-2013-and-2016) for more info.
 
-Thanks to @bill-long for contributing guidance and recommendations for improvements
+Thanks to [Bill Long](https://github.com/bill-long) for contributing guidance and recommendations for improvements
