@@ -1,13 +1,14 @@
-﻿<#
+﻿<#####
+# v1.01
 # Author: Eric Scofield (erscofie@microsoft.com)
 # Description:  Extracts individual RopIds for all MapiHttp\Mailbox logs in specified directory, converts each RopId to the associated Rop name, then writes Rop names with ActAsUserEmail to csv.
-
-Script adapted from original ".\RopBreakdownByUser.ps1" which parses RCA logs Matthew Huynh (mahuynh@microsoft.com):
-https://blogs.technet.microsoft.com/mahuynh/2014/09/22/enable-rop-logging-in-exchange-2010-and-2013/
-
+#
+# Script adapted from original ".\RopBreakdownByUser.ps1" which parses RCA logs Matthew Huynh (mahuynh@microsoft.com):
+# https://blogs.technet.microsoft.com/mahuynh/2014/09/22/enable-rop-logging-in-exchange-2010-and-2013/
+#
 # Usage: .\Mapi-RopBreakdownByUser.ps1 "c:\temp\mapihttplogs"
- #>
- 
+#####>
+
 param(
 [parameter(Mandatory=$true)]
 [ValidateNotNullOrEmpty()]
@@ -164,7 +165,7 @@ foreach ($file in $inputFiles) {
 
     $fileName = $file.FullName
     $input = [System.IO.StreamReader] $fileName
-    
+
     write-host "parsing file" $fileName
 
     $outputFile = $fileName.ToLower().Replace(".log", "_ropBreakdownByUser.csv")
@@ -174,11 +175,14 @@ foreach ($file in $inputFiles) {
 
     $lineCount = 0
 
+    $idxDateTime = 0;
     $idxUser = 0;
+    $idxClient = 0;
+    $idxClientVersion = 0;
     $idxRopId = 0;
 
     # write CSV header
-    $stream.WriteLine("ActAsUserEmail,Rop")
+    $stream.WriteLine("DateTime,ActAsUserEmail,Client,ClientVersion,Rop")
 
     while (!$input.EndOfStream) {
         $line = $input.ReadLine()
@@ -192,7 +196,10 @@ foreach ($file in $inputFiles) {
                 for ($i = 0; $i -lt $headers.Length; $i++) {
                     $h = $headers[$i];
                     switch ($h) {
+                        "DateTime" {$idxDateTime = $i}
                         "ActAsUserEmail" {$idxUser = $i}
+                        "ClientSoftware" {$idxClient = $i}
+                        "ClientSoftwareVersion" {$idxClientVersion = $i}
                         "RopIds" {$idxRopId = $i;}
                     }
                 }
@@ -204,8 +211,10 @@ foreach ($file in $inputFiles) {
             #write-host "current line:" $line
 
             $fields = $line.Split(",");
-
+            $DateTime = $fields[$idxDateTime]
             $User = $fields[$idxUser]
+            $Client = $fields[$idxClient]
+            $clientVersion = $fields[$idxClientVersion]
             #$separator = char[][]
             $rops = $fields[$idxRopId].Split("]")
 
@@ -213,8 +222,8 @@ foreach ($file in $inputFiles) {
             {
                 if ($rop.Contains('>')) {
                     $counter++
-                    $newRec = $rop.Trim().Replace('>', '').Replace("[", '').Replace('"', '')        
-                    $newRec = $User + "," +  $ropNames[[int]$newRec]
+                    $newRec = $rop.Trim().Replace('>', '').Replace("[", '').Replace('"', '')
+                    $newRec = $DateTime + "," + $User + "," + $Client + "," + $clientVersion + "," +  $ropNames[[int]$newRec]
                     #Write-Host $newRec
                     $stream.WriteLine($newRec)
                 }
@@ -226,7 +235,7 @@ foreach ($file in $inputFiles) {
             #>
 
         }
-        
+
     }
 
     #Write-host "UserIndex: $idxUser, RopIdIndex: $idxRopId"
